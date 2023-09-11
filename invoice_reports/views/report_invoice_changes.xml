@@ -27,16 +27,6 @@
         </xpath>
     </template>
 
-
-
-
-
-
-
-
-
-
-
     <template id="report_invoice_external_layout_standard" inherit_id="web.external_layout_standard">
         <xpath expr="//span[@t-if='company.company_details']" position="replace">
             <span t-if="o and 'partner_bank_id' in o.fields_get()">

@@ -11,7 +11,7 @@
         </template>
 
         <record id="report_invoices_new" model="ir.actions.report">
-            <field name="name">Invoices Flariocosmetics s.r.o</field>
+            <field name="name">Invoice with Account Bank Info</field>
             <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">invoice_reports.report_invoice_cz</field>

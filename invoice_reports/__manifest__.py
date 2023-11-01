@@ -27,8 +27,4 @@
         'report/invoice_report.xml',
         'views/report_invoice_changes.xml'
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
 }

@@ -2,7 +2,7 @@
 <odoo>
     <template id="report_invoice_document_changes" inherit_id="account.report_invoice_document">
         <xpath expr="//tbody[@class='invoice_tbody']" position="attributes">
-            <attribute name="style">font-size: 18px!important;</attribute>
+            <attribute name="style">font-size: 19px!important;</attribute>
         </xpath>
         <xpath expr="//td[@name='account_invoice_line_name']" position="replace">
             <td name="account_invoice_line_name"><span t-field="line.product_id.display_name" t-options="{'widget': 'text'}"/></td>

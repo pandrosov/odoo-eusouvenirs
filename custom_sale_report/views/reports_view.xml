@@ -1,7 +1,7 @@
 <odoo>
     <report
         id="action_report_custom_sale_order"
-        string="Custom Sale Report"
+        string="Quotation without price"
         model="sale.order"
         report_type="qweb-pdf"
         name="custom_sale_report.custom_sale_report_template"

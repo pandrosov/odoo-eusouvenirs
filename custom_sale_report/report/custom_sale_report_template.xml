@@ -1,0 +1,74 @@
+<odoo>
+    <template id="custom_sale_report_template">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+                <t t-set="forced_vat" t-value="doc.fiscal_position_id.foreign_vat"/>
+                <main>
+                    <div class="page">
+                        <div class="oe_structure"/>
+
+                        <h2 class="mt-4">
+                            <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
+                            <span t-elif="doc.state in ['draft','sent']">Quotation # </span>
+                            <span t-else="">Order # </span>
+                            <span t-field="doc.name"/>
+                        </h2>
+
+                        <div t-set="address">
+                            <div t-field="doc.partner_shipping_id" t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': True}"/>
+                            <p t-if="doc.partner_id.vat"><t t-out="doc.company_id.account_fiscal_country_id.vat_label or 'Tax ID'"/>: <span t-field="doc.partner_id.vat"/></p>
+                        </div>
+
+                        <div class="row mt-4 mb-4" id="informations">
+                            <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2" name="informations_reference">
+                                <strong>Your Reference:</strong>
+                                <p class="m-0" t-field="doc.client_order_ref"/>
+                            </div>
+                            <div t-if="doc.date_order" class="col-auto col-3 mw-100 mb-2" name="informations_date">
+                                <strong t-if="doc.state in ['draft', 'sent']">Quotation Date:</strong>
+                                <strong t-else="">Order Date:</strong>
+                                <p class="m-0" t-field="doc.date_order" t-options="{'widget': 'date'}"/>
+                            </div>
+                            <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto col-3 mw-100 mb-2" name="expiration_date">
+                                <strong>Expiration:</strong>
+                                <p class="m-0" t-field="doc.validity_date"/>
+                            </div>
+                            <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                                <strong>Salesperson:</strong>
+                                <p class="m-0" t-field="doc.user_id"/>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm o_main_table table-borderless mt-4">
+                            <thead style="display: table-row-group">
+                                <tr>
+                                    <th name="th_description" class="text-start">Product Name</th>
+                                    <th name="th_reference" class="text-start">Product Reference</th>
+                                    <th name="th_quantity" class="text-end">Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody">
+                                <t t-foreach="doc.order_line" t-as="line">
+                                    <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                        <t t-if="not line.display_type">
+                                            <td name="td_name" class="text-start"><span t-field="line.name"/></td>
+                                            <td name="td_reference" class="text-start"><span t-field="line.product_id.default_code"/></td>
+                                            <td name="td_quantity" class="text-end"><span t-field="line.product_uom_qty"/></td>
+                                        </t>
+                                        <t t-elif="line.display_type == 'line_section'">
+                                            <td name="td_section_line" colspan="3"><span t-field="line.name"/></td>
+                                        </t>
+                                        <t t-elif="line.display_type == 'line_note'">
+                                            <td name="td_note_line" colspan="3"><span t-field="line.name"/></td>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </t>
+        </t>
+    </template>
+</odoo>

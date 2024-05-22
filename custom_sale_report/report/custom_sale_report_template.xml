@@ -2,6 +2,18 @@
     <template id="custom_sale_report_template">
         <t t-call="web.external_layout">
             <t t-foreach="docs" t-as="doc">
+                <t t-set="fonts_path" t-value="request.env['ir.config_parameter'].sudo().get_param('web.base.url') + '/custom_sale_report/static/src/fonts/'"/>
+                <style>
+                    @font-face {
+                        font-family: 'DejaVu Sans';
+                        src: url('<t t-esc="fonts_path"/>DejaVuSans.ttf') format('truetype');
+                    }
+                    body {
+                        font-family: 'DejaVu Sans', sans-serif;
+                    }
+                </style>
+
+
                 <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
                 <t t-set="forced_vat" t-value="doc.fiscal_position_id.foreign_vat"/>
                 <main>

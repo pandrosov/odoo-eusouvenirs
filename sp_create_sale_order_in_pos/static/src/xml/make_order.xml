@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2022-Present Speeduplight (<https://speeduplight.com/>) -->
+<templates id="template">
+
+    <t t-name="MakeSalesOrderButton" owl="1">
+        <div class="control-button">
+            <i class="fa fa-shopping-basket" role="img" aria-label="Make Sales Order" title="Make Sales Order" />Make Sales Order
+        </div>
+    </t>
+</templates>
